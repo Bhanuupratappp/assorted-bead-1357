@@ -1,0 +1,54 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "email": "akash@gmail.com",
+      "password": "0598"
+    },
+    {
+      "email": "akash1@gmail.com",
+      "password": "1234",
+      "id": 2
+    },
+    {
+      "email": "akash2@gmail.com",
+      "password": "1234",
+      "id": 3
+    },
+    {
+      "email": "akash2@gmail.com",
+      "password": "1234",
+      "id": 4
+    },
+    {
+      "email": "akash3@gmail.com",
+      "password": "1234",
+      "id": 5
+    },
+    {
+      "email": "akash4@gmail.com",
+      "password": "1234",
+      "id": 6
+    },
+    {
+      "email": "dkjsf@fdsgj",
+      "password": "1234",
+      "id": 7
+    },
+    {
+      "email": "lkdsfj@lja",
+      "password": "lasjf",
+      "id": 8
+    },
+    {
+      "email": "akash@gmail.com",
+      "password": "1234",
+      "id": 9
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 10
+    }
+  ]
+}

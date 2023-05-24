@@ -1,6 +1,6 @@
 import image1 from "../../img/gplay.png"
 import image2 from "../../img/appstore1.png"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import sign from "../../img/other/sign.png"
 import Footer from "./Footer";
 import log from "../../img/other/login.jpg";
@@ -9,6 +9,7 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 import Home from "./Home";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../ContextProvider/AuthContextProvider";
 
 
 
@@ -23,6 +24,8 @@ export default function Login() {
     const [submit, setSubmit] = useState(false)
     const [pemail, setPemail] = useState("")
     const [ppass, setPpass] = useState("")
+    
+    const {logout, setLogout} = useContext(AuthContext)
 
 
 
@@ -54,14 +57,14 @@ export default function Login() {
             for (let i = 0; i < data.length; i++) {
                 if (data[i].email === email && data[i].password === pass) {
                     setLoggedIn(true)
+                    setLogout(!logout)
                     console.log("done")
                 } else {
                     console.log("wrong")
                 }
             }
         }
-        //   setEmail("")
-        //   setPass("")
+       
     }, [submit])
 
 
@@ -70,10 +73,33 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setSubmit(!submit)
-        setEmail("")
-        setPass("")
 
+        if (email === "" && pass === "") {
+            alert("Enter your Email and Password first")
+            return
+        } else if (email === "" || pass === "") {
+            alert("Please enter your Email and Password both")
+            return
+        }
+        let count = 0
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].email === email&&data[i].password===pass) {
+                setSubmit(!submit)
+                setEmail("")
+                setPass("")
+                
+            }else{
+                count++
+            }
+            
+
+        }
+        if(count===data.length){
+            return alert("You have entered wrong credentials")
+        }
+        
+        
+        
     }
 
     const postData = (e) => {

@@ -1,11 +1,14 @@
 import { NavLink } from "react-router-dom"
-import { ThemeContext } from "../AuthContextProvider/ThemeContextProvider"
+
 import { useContext } from "react"
 import image2 from "../../src/img/finallogo.jpg"
+import { AuthContext } from "../ContextProvider/AuthContextProvider"
 
 
 export default function Navbar() {
-const {theme} = useContext(ThemeContext)
+
+const {logout,setLogout} = useContext(AuthContext)
+
 
 
 
@@ -69,13 +72,26 @@ const {theme} = useContext(ThemeContext)
     borderBottom: isActive? "2px solid red":""
 
   })} to="/about-us" >About</NavLink>
-            
-            <NavLink style={({ isActive }) => ({
+
+
+
+{
+  logout?<NavLink style={({ isActive }) => ({
+    color: isActive ? '#fe4333 ' : 'black',
+    textDecoration: "none",
+    borderBottom: isActive? "2px solid red":""
+
+  })} onClick={()=>setLogout(!logout)} to="/login" >Logout</NavLink>
+  :
+  <NavLink style={({ isActive }) => ({
     color: isActive ? '#fe4333 ' : 'black',
     textDecoration: "none",
     borderBottom: isActive? "2px solid red":""
 
   })} to="/login" >Login</NavLink>
+}
+            
+            
 
         </div>
     </div>

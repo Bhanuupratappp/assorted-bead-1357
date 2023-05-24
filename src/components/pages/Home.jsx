@@ -10,7 +10,7 @@ import linkedin from "../../img/other/linkedin.png"
 // import {ArrowForwardIcon} from "react-icons"
 
 import image1 from "../../img/slide1.jpg"
-import SliderImage from "./SliderImage";
+
 import image2 from "../../img/other/pay2.jpg"
 import image3 from "../../img/upi.png"
 import image4 from "../../img/other/cashback.png"

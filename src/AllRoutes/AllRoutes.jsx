@@ -2,7 +2,7 @@ import {Routes,Route} from "react-router-dom"
 import Home from "../components/pages/Home"
 import Contact from "../components/pages/Contact"
 import About from "../components/pages/About"
-import Services from "../components/pages/Services"
+
 import Login from "../components/pages/Login"
 
 export default function AllRoutes(){
