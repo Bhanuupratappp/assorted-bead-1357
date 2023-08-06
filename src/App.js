@@ -1,7 +1,10 @@
 
 import AllRoutes from './AllRoutes/AllRoutes';
 import './App.css';
-import Navbar from './AllRoutes/Navbar';
+import Navbar from './AllRoutes/Navbar'
+import 'boxicons/css/boxicons.min.css';
+
+
 
 function App() {
   return (

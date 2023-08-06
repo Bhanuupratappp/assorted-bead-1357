@@ -14,8 +14,8 @@ import { AuthContext } from "../../ContextProvider/AuthContextProvider";
 
 
 
-export default function Login() {
-    const [login, setLogin] = useState(false)
+export default function AdminLogin() {
+    const {logIn,setLogIn} = useContext(AuthContext)
     const [sign, setSign] = useState(false)
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
@@ -25,15 +25,17 @@ export default function Login() {
     const [pemail, setPemail] = useState("")
     const [ppass, setPpass] = useState("")
     const [pagain, setpagain] = useState("")
-
-    const {loggedIn, setLoggedIn,logout, setLogout} = useContext(AuthContext)
+    
+    
 
 
 
     let navigate = useNavigate();
 
-    const LoggedIn = () => {
-        navigate("/");
+    const LogIn = () => {
+        
+        navigate("/admin");
+        
     };
 
 
@@ -42,7 +44,7 @@ export default function Login() {
 
         axios({
 
-            url: "http://localhost:8080/data",
+            url: "http://localhost:8080/adminlogin",
             method: "get",
 
         })
@@ -54,18 +56,19 @@ export default function Login() {
                 console.log(error)
             })
 
-        {
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].email === email && data[i].password === pass) {
+        // {
+        //     for (let i = 0; i < data.length; i++) {
+        //         if (data[i].email === email && data[i].password === pass) {
+        //             setLoggedIn(true)
                     
-                    console.log("done")
-                } else {
-                    console.log(loggedIn)
-                }
-            }
-        }
+        //             console.log("done")
+        //         } else {
+        //             console.log("wrong")
+        //         }
+        //     }
+        // }
        
-    }, [submit,logout])
+    }, [submit,logIn])
 
 
 
@@ -84,12 +87,10 @@ export default function Login() {
         let count = 0
         for (let i = 0; i < data.length; i++) {
             if (data[i].email === email&&data[i].password===pass) {
+                setLogIn(true)
                 setSubmit(!submit)
                 setEmail("")
                 setPass("")
-                setLoggedIn(true)
-                setLogout(!logout)
-                console.log("done")
                 
             }else{
                 count++
@@ -110,10 +111,19 @@ export default function Login() {
         if (pemail === "" && ppass === "") {
             alert("Enter your Email and Password first")
             return
-        } else if (pemail === "" || ppass === "") {
+        }if (pemail === "" || ppass === "") {
             alert("Please enter your Email and Password both")
             return
         }
+        if(pagain==""){
+            alert("please enter both passwords")
+            return
+        }
+         if(ppass !== pagain){
+            alert("Passwords do not match, try again")
+            return
+        }
+       
 
         for (let i = 0; i < data.length; i++) {
             if (data[i].email === pemail) {
@@ -132,17 +142,15 @@ export default function Login() {
 
         axios({
 
-            url: "http://localhost:8080/data",
+            url: "http://localhost:8080/adminlogin",
             method: "post",
             data: postLogin
 
         })
-        .then((res) => {
-            
-            console.log(res)
-        }).catch((err)=>{
-            console.log(err)
-        })
+            .then((res) =>
+                console.log(res)
+
+            )
         setPemail("")
         setPpass("")
         setSign(!sign)
@@ -152,62 +160,25 @@ export default function Login() {
 
 
 
-    if (loggedIn === true) {
-        LoggedIn()
-    }
-    if(logout=== true){
-        setLoggedIn(false)
+    if (logIn === true) {
+        LogIn()
     }
 
 
 
 
     return <div >
-        {
-            !login ?
+        
+            
 
 
 
-                <div style={{ borderRadius: "10px", backgroundColor: "white", boxShadow: "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset", display: "flex", width: "700px", margin: "auto", marginTop: "60px", height: "100%", padding: "40px" }}>
-                    <div style={{ textAlign: "left" }}>
-                        <h2 style={{ color: "#e85a4f" }}>To Login into your PayOne Web account</h2>
-                        <p>1. Open PayOne App</p>
-                        <p>2. Tap Scan option available at the bottom</p>
-                        <p>3. Point PayOne Scan at QR Code to login</p>
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <h4 style={{ color: "#8E8D8A" }}>To create an account download PayOne app</h4>
-
-                        <div style={{ display: "flex" }}>
-                            <img src={image1} alt="" width={150} height={120} />
-                            <img style={{ marginTop: "25px" }} src={image2} alt="" width={170} height={70} />
-                        </div>
-
-
-                    </div>
-
-                    <div>
-
-                        <img style={{ paddingTop: "10px" }} src="https://qrcg-free-editor.qr-code-generator.com/main/assets/images/websiteQRCode_noFrame.png" width={300} height={300} alt="" />
-                        <h3>Or</h3>
-                        <button onClick={() => setLogin(!login)} style={{ marginTop: "15px", cursor: "pointer", border: "none", borderRadius: "20px", color: "white", backgroundColor: "#e85a4f", fontSize: "20px", padding: "16px 40px 16px 40px" }}>Sign Up | Log In</button>
-
-                    </div>
+                
+                  
 
 
 
-
-
-
-
-                </div>
-
-
-
-
-                :
+                
 
 
 
@@ -216,11 +187,11 @@ export default function Login() {
                         sign ? <div style={{ borderRadius: "10px", display: "flex", gap: "20px", justifyContent: "center", backgroundColor: "white", boxShadow: "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset", width: "700px", margin: "auto", marginTop: "60px", height: "100%", padding: "40px" }}>
                             <div>
                                 <div>
-                                    <h1 style={{ color: "#8E8D8A" }}>Welcome to PayOne</h1>
+                                    <h1 style={{ color: "#8E8D8A" }}>Welcome to Admin side</h1>
                                 </div>
 
                                 <div style={{ display: "flex", gap: "30px", justifyContent: "center" }}>
-                                    <button onClick={() => setSign(false)} style={{ marginTop: "15px", cursor: "pointer", border: "none", borderBottom: "2px solid #e85a4f", borderRadius: "20px", color: "#e85a4f", backgroundColor: "white", fontSize: "20px", padding: "16px 40px 16px 40px" }}>SignUp</button>
+                                    <button onClick={() => setSign(false)} style={{ marginTop: "15px", cursor: "pointer", border: "none", borderBottom: "2px solid #e85a4f", borderRadius: "20px", color: "#e85a4f", backgroundColor: "white", fontSize: "20px", padding: "16px 40px 16px 40px", boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" }}>SignUp</button>
 
                                     <button onClick={() => setSign(true)} style={{ marginTop: "15px", cursor: "pointer", border: "none", borderRadius: "20px", color: "white", backgroundColor: "#e85a4f", fontSize: "20px", padding: "16px 48px 16px 48px" }}>LogIn</button>
                                 </div>
@@ -283,16 +254,16 @@ export default function Login() {
 
 
 
-                            <div style={{ borderRadius: "10px", display: "flex", gap: "20px", justifyContent: "center", backgroundColor: "white", boxShadow: "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset", width: "700px", margin: "auto", marginTop: "60px", height: "424px", padding: "40px" }}>
+                            <div style={{ borderRadius: "10px", display: "flex", gap: "20px", justifyContent: "center", backgroundColor: "white", boxShadow: "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset", width: "800px", margin: "auto", marginTop: "60px", height: "424px", padding: "40px" }}>
                                 <div>
                                     <div>
-                                        <h1 style={{ color: "#8E8D8A" }}>Welcome to PayOne</h1>
+                                        <h1 style={{ color: "#8E8D8A" }}>Welcome to Admin side</h1>
                                     </div>
 
                                     <div style={{ display: "flex", gap: "30px", justifyContent: "center" }}>
                                         <button onClick={() => setSign(false)} style={{ marginTop: "15px", cursor: "pointer", border: "none", borderRadius: "20px", color: "white", backgroundColor: "#e85a4f", fontSize: "20px", padding: "16px 40px 16px 40px" }}>SignUp</button>
 
-                                        <button onClick={() => setSign(true)} style={{ marginTop: "15px", cursor: "pointer", border: "none", borderBottom: "2px solid #e85a4f", borderRadius: "20px", color: "#e85a4f", backgroundColor: "white", fontSize: "20px", padding: "16px 48px 16px 48px" }}>LogIn</button>
+                                        <button onClick={() => setSign(true)} style={{ marginTop: "15px", cursor: "pointer", border: "none", borderBottom: "2px solid #e85a4f", borderRadius: "20px", color: "#e85a4f", backgroundColor: "white", fontSize: "20px", padding: "16px 48px 16px 48px",boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" }}>LogIn</button>
                                     </div>
 
 
@@ -321,25 +292,25 @@ export default function Login() {
                                                 value={ppass}
 
                                             />
-                                                <input 
-                                            style={{ padding: "10px", paddingBottom: "20px", margin: "10px", width: "200px", border: "none", borderBottom: "2px solid orange", }}
 
+
+
+                                            <input
+
+                                            style={{ padding: "10px", paddingBottom: "20px", margin: "10px", width: "200px", border: "none", borderBottom: "2px solid orange", }}
+                                            
 
                                             placeholder="Enter password again"
                                             onChange={(e) => setpagain(e.target.value)}
                                             value={pagain}
 
                                             />
+
+
+
+
                                             <br />
                                             <br />
-
-
-
-                                        
-
-                                                               
-
-
                                             <input style={{ cursor: "pointer", border: "none", fontWeight: "bold", color: "#e85a4f", backgroundColor: "#EAE7DC", padding: "8px 30px 8px 30px" }} value="Sign up" className="submit" type="submit" />
                                             {/* <img src={sign} alt="" width={140} type="submit" /> */}
 
@@ -369,7 +340,7 @@ export default function Login() {
 
 
 
-        }
+        
 
         <br /><br /><br /><br /><br />
         <Footer />

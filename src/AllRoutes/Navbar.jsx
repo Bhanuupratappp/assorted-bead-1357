@@ -75,20 +75,28 @@ const {logout,setLogout} = useContext(AuthContext)
 
 
 
+
 {
   logout?<NavLink style={({ isActive }) => ({
     color: isActive ? '#fe4333 ' : 'black',
     textDecoration: "none",
     borderBottom: isActive? "2px solid red":""
 
-  })} onClick={()=>setLogout(!logout)} to="/login" >Logout</NavLink>
+  })} onClick={()=>{
+    
+    setLogout(!logout)
+    alert("You have been Loggedout successfully")
+  
+  }
+  } to="/login" >Logout</NavLink>
   :
   <NavLink style={({ isActive }) => ({
     color: isActive ? '#fe4333 ' : 'black',
     textDecoration: "none",
-    borderBottom: isActive? "2px solid red":""
+    borderBottom: isActive? "2px solid red":"",
+    
 
-  })} to="/login" >Login</NavLink>
+  })} to="/login" >Login/SignUp</NavLink>
 }
             
             
