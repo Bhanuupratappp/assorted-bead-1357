@@ -17,7 +17,7 @@
 
 **GitHub:** To maintain repository and version control.
 
-**VS Code:** To write React.js, CSS, Node.js, and Express.js code.
+**VS Code:** To write React.js and CSS.
 
 **Microsoft Edge, Google Chrome & Mozilla Firefox:** To check the functionality and run the code.
 
